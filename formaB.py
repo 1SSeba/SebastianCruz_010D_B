@@ -1,24 +1,24 @@
 def validar_codigo(codigo): return len(codigo.strip()) > 0
 def validar_nombre(nombre): return len(nombre.strip()) > 0
 def validar_tickets(cantidad): return cantidad > 0
-def validar_promedio(promedio): return 1.0 <= promedio <= 7.0
 
-
-
-def cupos_genero(cupo, genero, peliculas, categoraias):
+def cupos_genero(cupo, genero, peliculas, cartelera):
     cupo = 0
     for cod, datos in peliculas.items():
         if datos[1].lower ==  genero.lower:
             cupo += cartelera[cod][1]
     return cupo
 
-def busqueda_rango(pmin, pmax, peliculas, cartelera):
+def busqueda_precio(p_min, p_max, peliculas, cartelera):
     precio = []
     for cod, datos in cartelera.items():
-        if pmin <= datos[0] <= pmax and datos[1] > 0:
-            precio.append(f"{peliculas[cod][0]}, {cartelera[0]}")
+        if p_min <= datos[0] <= p_max and datos[1] > 0:
+            precio.append(f"{peliculas[cod][0]}, {cartelera[cod][0]}")
         precio.sort()
     return precio
+
+def actualizar_precio(precio, peliculas, cartelera):
+
 
 def menu():
     print("\n========== MENÚ PRINCIPAL ==========")
@@ -48,11 +48,22 @@ def main():
 
 
     while True:
+        menu()
         opcion = int(input(leer_op()))
-        if opcion = 1:
-        elif opcion = 2:
-        elif opcion = 3:
-        elif opcion = 4:
-        elif opcion = 5:
-        elif opcion = 6:
+        if opcion == 1:
+            genero = input("Ingrese el género de la película: ")
+            cupos = cupos_genero(0, genero, peliculas, cartelera)
+            print(f"El cupo total de películas del género '{genero}' es: {cupos}")
+
+        elif opcion == 2:
+            p_min = float(input("Ingrese el precio mínimo: "))
+            p_max = float(input("Ingrese el precio máximo: "))
+            resultados = busqueda_precio(p_min, p_max, peliculas, cartelera)
+            print("Películas encontradas:")
+            for pelicula in resultados:
+                print(pelicula)
+        elif opcion == 3:
+        elif opcion == 4:
+        elif opcion == 5:
+        elif opcion == 6:
             break
