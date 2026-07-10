@@ -1,6 +1,12 @@
 def validar_codigo(codigo): return len(codigo.strip()) > 0
-def validar_nombre(nombre): return len(nombre.strip()) > 0
-def validar_tickets(cantidad): return cantidad > 0
+def validar_titulo(titulo): return len(titulo.strip()) > 0
+def validar_genero(genero): return len(genero.strip()) > 0
+def validar_idioma(idioma): return len(idioma.strip()) > 0
+def validar_duracion(duracion): return duracion > 0
+def validar_precio(precio): return precio > 0
+def validar_cupos(cupos): return cupos > 0
+def validar_clasificacion(clasificacion): return clasificacion == "A" or clasificacion == "B" or clasificacion == "C"
+def validar_3d(es_3d): return
 
 def cupos_genero(cupo, genero, peliculas, cartelera):
     cupo = 0
@@ -42,8 +48,49 @@ def leer_op():
     if leer_op < 0:
         return print("La opcion debe de ser mayor a 0")
 
+def agregar_pelicula(codigo, titulo, genero, duracion, idioma, es_3d, precio, cupos, clasificacion, peliculas, cartelera):
+    if not validar_codigo(codigo):
+        print("Código inválido. Debe tener al menos un carácter.")
+        return
+    if not validar_titulo(titulo):
+        print("Título inválido. Debe tener al menos un carácter.")
+        return
+    if not validar_genero(genero):
+        print("Género inválido. Debe tener al menos un carácter.")
+        return
+    if not validar_duracion(duracion):
+        print("Duración inválida. Debe ser mayor a 0.")
+        return
+    if not validar_idioma(idioma):
+        print("Idioma inválido. Debe tener al menos un carácter.")
+        return
+    if not validar_3d(es_3d):
+        print("Valor de 3D inválido. Debe ser True o False.")
+        return
+    if not validar_precio(precio):
+        print("Precio inválido. Debe ser mayor a 0.")
+        return
+    if not validar_cupos(cupos):
+        print("Cupos inválidos. Deben ser mayores a 0.")
+        return
+    if not validar_clasificacion(clasificacion):
+        print("Clasificación inválida. Debe ser 'A', 'B' o 'C'.")
+        return
+
+    peliculas[codigo] = [titulo, genero, duracion, clasificacion, idioma, es_3d]
+    cartelera[codigo] = [precio, cupos]
+    print(f"Película '{titulo}' agregada exitosamente.")
+
+def eliminar_pelicula(peliculas, cartelera):
+    codigo = input("Ingrese el código de la película a eliminar: ")
+    if buscar_codigo(codigo, peliculas):
+        del peliculas[codigo]
+        del cartelera[codigo]
+        print(f"La película con código '{codigo}' ha sido eliminada.")
+    else:
+        print("Código de película no encontrado.")
+
 def main():
-    
     peliculas = {
     'P101': ['Luz de Otoño', 'drama', 110, 'B', 'Español', False],
     'P102': ['Noche Neón', 'acción', 125, 'C', 'Ingles', True],
@@ -74,6 +121,17 @@ def main():
             precio = float(input("Ingrese el nuevo precio: "))
             actualizar_precio(precio, peliculas, cartelera)
         elif opcion == 4:
+            codigo = input("Ingrese el código de la película: ")
+            titulo = input("Ingrese el título de la película: ")
+            genero = input("Ingrese el género de la película: ")
+            duracion = int(input("Ingrese la duración de la película (en minutos): "))
+            idioma = input("Ingrese el idioma de la película: ")
+            es_3d = input("¿La película es 3D? (True/False): ").strip().lower() == 'true'
+            precio = float(input("Ingrese el precio de la película: "))
+            cupos = int(input("Ingrese los cupos disponibles para la película: "))
+            clasificacion = input("Ingrese la clasificación de la película (A, B, C): ").strip().upper()
+            agregar_pelicula(codigo, titulo, genero, duracion, idioma, es_3d, precio, cupos, clasificacion, peliculas, cartelera)
         elif opcion == 5:
+            eliminar_pelicula(peliculas, cartelera)
         elif opcion == 6:
             break
