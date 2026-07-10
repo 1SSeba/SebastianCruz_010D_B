@@ -17,7 +17,7 @@ def busqueda_precio(p_min, p_max, peliculas, cartelera):
         precio.sort()
     return precio
 
-def buscar_codigo(codigo):
+def buscar_codigo(codigo, peliculas):
     return codigo in peliculas
 
 def actualizar_precio(precio, peliculas, cartelera):
