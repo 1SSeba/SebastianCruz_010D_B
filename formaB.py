@@ -110,8 +110,7 @@ def main():
 
     while True:
         desplegar_menu()
-        opcion = int(input("Ingrese un numero: "))
-        leer_op(opcion)
+        opcion = leer_op()
         if opcion == 1:
             genero = input("Ingrese el género de la película: ")
             cupos = cupos_genero(0, genero, peliculas, cartelera)
