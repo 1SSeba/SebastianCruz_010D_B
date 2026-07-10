@@ -20,7 +20,7 @@ def busqueda_precio(p_min, p_max, peliculas, cartelera):
 def actualizar_precio(precio, peliculas, cartelera):
 
 
-def menu():
+def desplegar_menu():
     print("\n========== MENÚ PRINCIPAL ==========")
     print("1. Cupos por género")
     print("2. Búsqueda de películas por rango de precio")
@@ -48,7 +48,7 @@ def main():
 
 
     while True:
-        menu()
+        desplegar_menu()
         opcion = int(input(leer_op()))
         if opcion == 1:
             genero = input("Ingrese el género de la película: ")
