@@ -17,8 +17,16 @@ def busqueda_precio(p_min, p_max, peliculas, cartelera):
         precio.sort()
     return precio
 
-def actualizar_precio(precio, peliculas, cartelera):
+def buscar_codigo(codigo):
+    return codigo in peliculas
 
+def actualizar_precio(precio, peliculas, cartelera):
+    codigo = input("Ingrese el código de la película a actualizar: ")
+    if buscar_codigo(codigo):
+        cartelera[codigo][0] = precio
+        print(f"El precio de la película '{peliculas[codigo][0]}' ha sido actualizado a {precio}.")
+    else:
+        print("Código de película no encontrado.")
 
 def desplegar_menu():
     print("\n========== MENÚ PRINCIPAL ==========")
@@ -63,6 +71,8 @@ def main():
             for pelicula in resultados:
                 print(pelicula)
         elif opcion == 3:
+            precio = float(input("Ingrese el nuevo precio: "))
+            actualizar_precio(precio, peliculas, cartelera)
         elif opcion == 4:
         elif opcion == 5:
         elif opcion == 6:
