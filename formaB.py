@@ -44,10 +44,6 @@ def desplegar_menu():
     print("6. Salir")
     print("=====================================")
 
-def leer_op():
-    if leer_op < 0:
-        return print("La opcion debe de ser mayor a 0")
-
 def agregar_pelicula(codigo, titulo, genero, duracion, idioma, es_3d, precio, cupos, clasificacion, peliculas, cartelera):
     if not validar_codigo(codigo):
         print("Código inválido. Debe tener al menos un carácter.")
@@ -90,6 +86,17 @@ def eliminar_pelicula(peliculas, cartelera):
     else:
         print("Código de película no encontrado.")
 
+def leer_op():
+    try:
+        opcion = int(input("Ingrese un número: "))
+        if opcion < 1 or opcion > 6:
+            print("Opción inválida. Por favor, ingrese un número entre 1 y 6.")
+            return leer_op()
+        return opcion
+    except ValueError:
+        print("Entrada inválida. Por favor, ingrese un número.")
+        return leer_op()
+
 def main():
     peliculas = {
     'P101': ['Luz de Otoño', 'drama', 110, 'B', 'Español', False],
@@ -101,10 +108,10 @@ def main():
     'P102': [7990, 0],
     }
 
-
     while True:
         desplegar_menu()
-        opcion = int(input(leer_op()))
+        opcion = int(input("Ingrese un numero: "))
+        leer_op(opcion)
         if opcion == 1:
             genero = input("Ingrese el género de la película: ")
             cupos = cupos_genero(0, genero, peliculas, cartelera)
@@ -135,3 +142,5 @@ def main():
             eliminar_pelicula(peliculas, cartelera)
         elif opcion == 6:
             break
+
+main()
